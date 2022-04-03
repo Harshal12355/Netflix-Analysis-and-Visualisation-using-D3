@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bar chart</title>
+</head>
+<body style="background-color: black;">
+    <style>
+        /* style button */
+        .button {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+        .active{
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+        #navbar {
+            text-align: center;
+            overflow: hidden;
+            background-color: #333;
+        }
+    </style>
+    <script type='text/javascript' src='https://d3js.org/d3.v7.min.js'></script>
+    <div>
+        <nav id="navbar">
+            <ul>
+                <li class="active">
+                    <a  style="color:white; text-decoration: none;" href="./index.html">Home</a>
+                </li>
+                <li class="active">
+                    <a style="color:white; text-decoration: none;"  href="./linecharts.html">Line charts</a>
+                </li>
+                <li class="active">
+                    <a style="color:white; text-decoration: none;"  href="./barcharts.html">Bar charts</a>
+                </li>
+                <li class="active">
+                    <a  style="color:white; text-decoration: none;" href="./piecharts.html">Pie charts</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+
+    <!-- barchart of the amount of content and standup content in the  -->
+    <div style="height:100vh; width: 100vw; background-color: black;">
+        <h1 style="text-align:center; padding-top: 50px; color: white;">
+            Barcharts displaying amount of content
+        </h1>
+        <div style="text-align:center; margin-top:20px; float: left; width:50vw;">
+            <button class="button" onclick="update(top10content, 'red', 'country')"> Top 10 countries with General Content</button>
+            <button class="button" onclick="update(top10standup, 'green', 'country')">Top 10 countries with Standup Content</button>
+            <button class="button" onclick="update(rating, 'blue', 'rating')">Amount of content per rating</button>
+        </div>
+        <div style="text-align:center; margin-top:0px; margin-right: 40px ;float: right; width:50vw; overflow-wrap: break-word;">
+            <h2 style="color:white">
+                There is a lot of things we can take into consideration by looking at the below graph wieunfiweuhf weiduh weiufhsx ahxaiuh3e chiuwrnx xquwh zakb
+            </h2>
+        </div>
+        <div class="barchart"></div>
+        <script src="countries.js"></script>
+    </div>
+
+</body>
+</html>
