@@ -1,27 +1,31 @@
 // Set dataset
-var dataset1 = [
-    [0,0], [1,1], [12,20], [24,36],
-    [32, 50], [40, 70], [50, 100],
-    [55, 106], [65, 123], [73, 130],
-    [78, 134], [83, 136], [89, 138],
-    [100, 140]
-];
+// var dataset1 = [
+//     [0,0], [1,1], [12,20], [24,36],
+//     [32, 50], [40, 70], [50, 100],
+//     [55, 106], [65, 123], [73, 130],
+//     [78, 134], [83, 136], [89, 138],
+//     [100, 140]
+// ];
 
-var dataset2 = [
-    [0,0], [13,38], [23,53],
-    [32, 50], [43, 70], [55, 100],
-    [62, 106], [65, 123], [76, 130],
-    [78, 134], [83, 136], [89, 138],
-    [100, 190]
-];
+// var dataset2 = [
+//     [0,0], [13,38], [23,53],
+//     [32, 50], [43, 70], [55, 100],
+//     [62, 106], [65, 123], [76, 130],
+//     [78, 134], [83, 136], [89, 138],
+//     [100, 190]
+// ];
 
+release = [] 
+standup = []
+shows = []
+movies = []
 Promise.all([
     d3.csv('../data/release_year.csv'),
     d3.csv('../data/standup_by_year.csv'),
     d3.csv('../data/shows_release.csv'),
     d3.csv('../data/movies_release.csv'),
-]).then(([csv,standupcsv,ratingcsv]) => {
-    csv.forEach(function(d) {
+]).then(([releasecsv, standupcsv, showscsv, moviescsv]) => {
+    releasecsv.forEach(function(d) {
         d.count = parseInt(d.count)
         content.push(d)
     })
@@ -29,9 +33,13 @@ Promise.all([
         d.count = parseInt(d.count)
         standup.push(d)
     })
-    ratingcsv.forEach(function(d) {
+    shows.forEach(function(d) {
         d.count = parseInt(d.count)
-        rating.push(d)
+        shows.push(d)
+    })
+    movies.forEach(function(d) {
+        d.count = parseInt(d.count)
+        movies.push(d)
     })
 
 
@@ -50,7 +58,7 @@ Promise.all([
             .attr("class", "left")
             .call(d3.axisLeft(y));
     
-    update(top10content, 'red', "country")
+    // update(top10content, 'red', "country")
 });
 
 // set the dimensions and margins of the graph

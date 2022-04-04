@@ -7,12 +7,8 @@ const radiusScale = d3.scaleSqrt();
 // colour schemes to use 
 var color = d3.scaleOrdinal().range(d3.schemeSet2);
 var pop_clr = d3.scaleSequential().domain([1, 100000000]).interpolator(d3.interpolateRdBu);
-var vax_clr = d3.scaleSequential().domain([1, 100000]).interpolator(d3.interpolateRdBu);
-var fullvax_clr = d3.scaleSequential().domain([1, 5000000]).interpolator(d3.interpolateRdBu);
-var card_vasc_clr = d3.scaleSequential().domain([1, 100000]).interpolator(d3.interpolateRdBu);
 var gdp_clr = d3.scaleSequential().domain([1, 15000]).interpolator(d3.interpolateRdBu);
-var handwash_clr = d3.scaleSequential().domain([1, 20000000]).interpolator(d3.interpolateRdBu);
-var content_clr = d3.scaleSequential().domain([1, 10]).interpolator(d3.interpolateRdBu);
+var content_clr = d3.scaleSequential().domain([1, 200]).interpolator(d3.interpolateRdBu);
 var standup_clr = d3.scaleSequential().domain([1, 10]).interpolator(d3.interpolateRdBu);
 
 const sizeScale = d3.scaleSqrt();
@@ -21,18 +17,6 @@ const sizeScale = d3.scaleSqrt();
 function handleMouseover(e, d) {
     d3.select('#content .info').text("Country: " + d.properties.name)
         .style('fontsize', '56px')
-        .style('color', 'white');
-
-    d3.select('#content .date')
-        .text("Date: " + d.properties.date)
-        .style('color', 'white');
-
-    d3.select('#content .daily')
-        .text("Number of people vaccinated that day: " + d.properties.daily_vaccinations)
-        .style('color', 'white');
-
-    d3.select('#content .peoplevax')
-        .text("Total number of people vaccinated: " + d.properties['people_fully_vaccinated'])
         .style('color', 'white');
     
     d3.select('#content .economy')
@@ -43,22 +27,15 @@ function handleMouseover(e, d) {
         .text("Estimated population of the region: " + d.properties['pop_est'])
         .style('color', 'white');
     
-    d3.select('#content .totalcases')
-        .text("Total Cases: " + d.properties['total_cases'])
-        .style('color', 'white');
-
-    d3.select('#content .cardiovasc')
-        .text("Total Deahts: " + d.properties['total_deaths'])
+    d3.select('#content .content')
+        .text("Amount of content: " + d.properties['content_count'])
         .style('color', 'white');
     
-    d3.select('#content .gdp')
-        .text("GDP per capita: " + d.properties['gdp_per_capita'])
+    d3.select('#content .standup')
+        .text("Amount of standup content: " + d.properties['standup_count'])
         .style('color', 'white');
 
-    d3.select('#content .handwash')
-        .text("Total Boosters: " + d.properties['total_boosters'])
-        .style('color', 'white');
-    
+
     d3.select(this)
     .style('fill', 'red');
 }
@@ -71,23 +48,21 @@ function clickedFunction(e, d) {
 
 //load data
 Promise.all([
-    d3.csv('countries.csv'),
+    d3.csv('../data/countries.csv'),
     d3.json('custom.geo.json'),
-    d3.csv('standup_by_country.csv'),
+    d3.csv('../data/standup_by_country.csv'),
 ]).then(([csv, json, standupcsv]) => {
-
-    console.log(standupcsv)
     //for the csv
     const rowbyLocation = {};
     csv.forEach(d => { 
-        d.content_count = parseInt(d.content_count);
+        d.content_count = parseInt(d.count);
         rowbyLocation[d.country] = d; 
     })
     console.log(rowbyLocation)
     
     const srowbyLocation = {};
     standupcsv.forEach(d => { 
-        d.content_count = parseInt(d.standup_count);
+        d.standup_count = parseInt(d.count);
         srowbyLocation[d.country] = d; 
     })
 
@@ -95,12 +70,13 @@ Promise.all([
     
     // //we are joining the data from the csv into countries
     countries.features.forEach(d => {
-        Object.assign(d.properties, rowbyLocation[d.properties.admin]);
+        Object.assign(d.properties, rowbyLocation[d.properties.brk_name]);
     });
 
     countries.features.forEach(d=> {
-        Object.assign(d.properties, srowbyLocation[d.properties.admin]);
+        Object.assign(d.properties, srowbyLocation[d.properties.brk_name]);
     })
+
     console.log(countries.features)
 
     countries.features = countries.features.map(d => {
@@ -108,17 +84,16 @@ Promise.all([
         return d;
     }); 
 
-
     update('content_count');
 });
 
-function grouping(property){
-    var group = d3.group(
-        countries.features,
-        d => d.properties[property],
-    );
-    return group;
-}
+// function grouping(property){
+//     var group = d3.group(
+//         countries.features,
+//         d => d.properties[property],
+//     );
+//     return group;
+// }
 
 function update(property) {
     console.log(property)
@@ -137,6 +112,15 @@ function update(property) {
     }
 
     console.log(strokeclr)
+
+    const radiusVal = d => d.properties[property];
+    const radiusScale = d3.scaleSqrt()
+        .domain(d3.extent(countries.features, radiusVal))
+        .range([0, 20]);
+
+    countries.features.forEach(d => {
+        d.properties['radius'] = radiusScale(radiusVal(d));
+    });
 
     var map = svg.selectAll('path').data(countries.features)
     
@@ -159,7 +143,20 @@ function update(property) {
                 })
                 .on('click', clickedFunction)
                 .append('title')
-                .text(d => d.properties.name);  
+                .text(d => d.properties.name); 
+                
+                enter.selectAll('circle').data(countries.features)
+                    .enter()
+                    .append('circle')
+                    .style('fill', function(d) {return 'white';})
+                    .attr('class', 'country-circle')
+                    .attr('cx', function(d) {
+                        return d.properties.projection[0];
+                    })
+                    .attr('cy', function(d) {
+                        return d.properties.projection[1];
+                    })
+                    .attr('r', d => d.properties['radius']);
             },
             update => { 
                 update.attr('class', 'country')
@@ -178,6 +175,20 @@ function update(property) {
                 .on('click', clickedFunction)
                 .append('title')
                 .text(d => d.properties.name); 
+
+                update.selectAll('circle').data(countries.features)
+                    .enter()
+                    .append('circle')
+                    .attr('class', 'country-circle')
+                    .style('fill', function(d) {return color(d.properties[property]);})
+                    .attr('cx', function(d) {
+                        // console.log("enter running.....")
+                        return d.properties.projection[0];
+                    })
+                    .attr('cy', function(d) {
+                        return d.properties.projection[1];
+                    })
+                    .attr('r',10);
         },
             exit => exit.remove()
         )
@@ -190,6 +201,7 @@ var zoom = d3.zoom()
     .on('zoom', function (event) {
         svg.selectAll('path')
             .attr('transform', event.transform);
-
+        svg.selectAll('circle')
+            .attr('transform', event.transform);
     });
 svg.call(zoom);
