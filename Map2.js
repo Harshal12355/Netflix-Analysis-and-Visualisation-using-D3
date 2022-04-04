@@ -48,9 +48,9 @@ function clickedFunction(e, d) {
 
 //load data
 Promise.all([
-    d3.csv('../data/countries.csv'),
+    d3.csv('countries.csv'),
     d3.json('custom.geo.json'),
-    d3.csv('../data/standup_by_country.csv'),
+    d3.csv('standup_by_country.csv'),
 ]).then(([csv, json, standupcsv]) => {
     //for the csv
     const rowbyLocation = {};

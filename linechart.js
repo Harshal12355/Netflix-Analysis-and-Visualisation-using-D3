@@ -20,10 +20,10 @@ standup = []
 shows = []
 movies = []
 Promise.all([
-    d3.csv('../data/release_year.csv'),
-    d3.csv('../data/standup_by_year.csv'),
-    d3.csv('../data/shows_release.csv'),
-    d3.csv('../data/movies_release.csv'),
+    d3.csv('release_year.csv'),
+    d3.csv('standup_by_year.csv'),
+    d3.csv('shows_release.csv'),
+    d3.csv('movies_release.csv'),
 ]).then(([releasecsv, standupcsv, showscsv, moviescsv]) => {
     releasecsv.forEach(function(d) {
         d.count = parseInt(d.count)

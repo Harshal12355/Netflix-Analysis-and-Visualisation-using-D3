@@ -17,9 +17,9 @@ standup = []
 rating = []
         //load data
 Promise.all([
-    d3.csv('../data/countries.csv'),
-    d3.csv('../data/standup_by_country.csv'),
-    d3.csv('../data/ratingstypes.csv'),
+    d3.csv('countries.csv'),
+    d3.csv('standup_by_country.csv'),
+    d3.csv('ratingstypes.csv'),
 ]).then(([csv,standupcsv,ratingcsv]) => {
     csv.forEach(function(d) {
         d.count = parseInt(d.count)

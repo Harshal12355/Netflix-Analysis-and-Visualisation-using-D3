@@ -26,8 +26,8 @@ genre=[]
 genrecount = []
 
 Promise.all([
-    d3.csv("../data/amount_types.csv"),
-    d3.csv('../data/top10genres.csv'),
+    d3.csv("amount_types.csv"),
+    d3.csv('top10genres.csv'),
 ]).then(([data, genres]) => {
     for (i in data) {
         type.push(data[i].type)
