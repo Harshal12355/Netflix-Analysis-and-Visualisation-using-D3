@@ -103,4 +103,5 @@ function update(data, colour, group) {
         .attr("fill", colour);
     
         u.exit().remove();
+        
 }

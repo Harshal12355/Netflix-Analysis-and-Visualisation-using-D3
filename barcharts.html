@@ -5,9 +5,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bar chart</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet">
 </head>
 <body style="background-color: black;">
     <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 16px;
+            color: white;
+        }
         /* style button */
         .button {
             background-color: #4CAF50;
@@ -47,16 +55,16 @@
                     <a  style="color:white; text-decoration: none;" href="./index.html">Home</a>
                 </li>
                 <li class="active">
-                    <a style="color:white; text-decoration: none;"  href="./linecharts.html">Line charts</a>
+                    <a style="color:white; text-decoration: none;"  href="./linecharts.html">Amounts of content</a>
                 </li>
                 <li class="active">
-                    <a style="color:white; text-decoration: none;"  href="./barcharts.html">Bar charts</a>
+                    <a style="color:white; text-decoration: none;"  href="./barcharts.html">Countries and Ratings</a>
                 </li>
                 <li class="active">
-                    <a  style="color:white; text-decoration: none;" href="./piecharts.html">Pie charts</a>
+                    <a  style="color:white; text-decoration: none;" href="./piecharts.html">Comparisons</a>
                 </li>
                 <li class="active">
-                    <a  style="color:white; text-decoration: none;" href="./map.html">Map</a>
+                    <a  style="color:white; text-decoration: none;" href="./map.html">Geographical Representations</a>
                 </li>
             </ul>
         </nav>
@@ -73,13 +81,13 @@
             <button class="button" onclick="update(top10standup, 'green', 'country')">Top 10 countries with Standup Content</button>
             <button class="button" onclick="update(rating, 'blue', 'rating')">Amount of content per rating</button>
         </div>
-        <div style="text-align:center; margin-top:0px; margin-right: 40px ;float: right; width:50vw; overflow-wrap: break-word;">
+        <div style="text-align:left; margin-top:0px; margin-right: 40px ;float: right; width:50vw; overflow-wrap: break-word;">
             <h2 style="color:white">
                 There is a lot of things we can take into consideration by looking at the below graph wieunfiweuhf weiduh weiufhsx ahxaiuh3e chiuwrnx xquwh zakb
             </h2>
         </div>
         <div class="barchart"></div>
-        <script src="countries.js"></script>
+        <script src="barchart.js"></script>
     </div>
 
 </body>

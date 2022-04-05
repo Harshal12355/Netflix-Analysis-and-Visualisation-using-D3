@@ -50,6 +50,7 @@ Promise.all([
 })
 
 console.log(type)
+
 function update(type, count){
     //Generate groups
     var arcs = piechart.selectAll("arc")

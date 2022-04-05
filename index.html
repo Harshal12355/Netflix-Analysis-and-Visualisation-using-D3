@@ -5,9 +5,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Netflix EDA</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet">
 </head>
 <body style="background-color: black;">
     <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 16px;
+            color: white;
+        }
         .active{
             background-color: #4CAF50;
             border: none;
@@ -20,34 +28,40 @@
             margin: 4px 2px;
             cursor: pointer;
         }
+        #navbar {
+            text-align: center;
+            overflow: hidden;
+            background-color: #333;
+        }
     </style>
     <div>
-        <h1 style="text-align:center; padding-top: 50px; color: white;">
-            Netflix Visualisation Analysis
         <nav id="navbar">
             <ul>
                 <li class="active">
                     <a  style="color:white; text-decoration: none;" href="./index.html">Home</a>
                 </li>
                 <li class="active">
-                    <a style="color:white; text-decoration: none;"  href="./linecharts.html">Line charts</a>
+                    <a style="color:white; text-decoration: none;"  href="./linecharts.html">Amounts of content</a>
                 </li>
                 <li class="active">
-                    <a style="color:white; text-decoration: none;"  href="./barcharts.html">Bar charts</a>
+                    <a style="color:white; text-decoration: none;"  href="./barcharts.html">Countries and Ratings</a>
                 </li>
                 <li class="active">
-                    <a  style="color:white; text-decoration: none;" href="./piecharts.html">Pie charts</a>
+                    <a  style="color:white; text-decoration: none;" href="./piecharts.html">Comparisons</a>
                 </li>
                 <li class="active">
-                    <a  style="color:white; text-decoration: none;" href="./map.html">Map</a>
+                    <a  style="color:white; text-decoration: none;" href="./map.html">Geographical Representations</a>
                 </li>
             </ul>
         </nav>
     </div>
 
     <div>
-        <h1 style="color:white; text-align:center; margin-top:10%;">
-            This page is a collection of different visualisations and different types of analysis on Netflix content
+        <h1 style="text-align:center; padding-top: 100px; color: white; font-size: 60px;">
+            Netflix Expolration Data Analysis
+        </h1>
+        <h2 style="color:white; text-align:center; margin-top:2%;">
+            This page is a collection of different visualisations and different types of analysis on Netflix content, we will explore the data in different of representation
         </h1>
     </div>
 </body>

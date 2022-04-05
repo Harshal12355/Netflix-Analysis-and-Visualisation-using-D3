@@ -1,19 +1,136 @@
-// Set dataset
-// var dataset1 = [
-//     [0,0], [1,1], [12,20], [24,36],
-//     [32, 50], [40, 70], [50, 100],
-//     [55, 106], [65, 123], [73, 130],
-//     [78, 134], [83, 136], [89, 138],
-//     [100, 140]
-// ];
+// Set Dimensions
+const xSize = 700; const ySize = 600;
+const margin = 50;
+const xMax = xSize - margin*2;
+const yMax = ySize - margin*2;
 
-// var dataset2 = [
-//     [0,0], [13,38], [23,53],
-//     [32, 50], [43, 70], [55, 100],
-//     [62, 106], [65, 123], [76, 130],
-//     [78, 134], [83, 136], [89, 138],
-//     [100, 190]
-// ];
+// Get the 'limits' of the data - the full extent (mins and max)
+// so the plotted data fits perfectly
+function lineGraph(data, data2, data3, data4) {
+    console.log(data2)
+    // var xExtent = d3.extent( data, d=>{ return d.x } );
+    // // var yExtent = d3.extent( data, d=>{ console.log(d) 
+    // //     return d.y } );
+    // // console.log(yExtent)
+    // // console.log(yExtent.reverse())
+    // yMaxVal = d3.max(data, d=>{ 
+    //     console.log(d)
+    //     return d.y 
+    // });
+    // ymax = parseInt(yMaxVal);
+    // console.log(ymax+200)
+    yExtent = [1000, 0];
+    // Append SVG Object to the Page
+    const svg = d3.select(".linechart")
+        .append("svg")
+        .attr('width', xSize )
+        .attr('height', ySize )
+        .append("g")
+        .attr("transform","translate(" + margin + "," + margin + ")");
+    
+    function setX(data, group){
+        var x = d3.scaleBand()
+            .range([ 0, xMax ])
+            .domain(data.map(function(d) { return d[group]; }))
+            .padding(0.2);
+            return x;
+    }
+        
+    function setY(data){
+        var y = d3.scaleLinear()
+        .domain([yExtent[1], yExtent[0]])
+        .range([ yMax, 0]);
+        return y;
+    }
+    
+    // X Axis
+    const x = setX(data, 'x');
+
+    // bottom
+    svg.append("g")
+        .attr("transform", "translate(0," + yMax + ")")
+        .call(d3.axisBottom(x))
+        .attr('color', 'white'); // make bottom axis green
+
+    // Y Axis
+    const y = setY(data)
+
+    // left y axis
+    svg.append("g")
+        .call(d3.axisLeft(y))
+        .attr('color', 'white');
+
+
+    // Add the line for general releases
+    var u1 = svg.append("path")
+        .datum(data)
+        .attr("fill", "none")
+        .attr("stroke", "red")
+        .attr("stroke-width", 1.5)
+        .attr("d", d3.line()
+        .x(function(d) { 
+            console.log("general: " + d.x)
+            return x(d.x) 
+        })
+        .y(function(d) {
+            console.log(d.y)
+            return y(d.y) 
+        }));
+    
+    // Adding the line for standup
+    var u2 = svg.append("path")
+        .datum(data2)
+        .attr("fill", "none")
+        .attr("stroke", "green")
+        .attr("stroke-width", 1.5)
+        .attr("d", d3.line()
+        .x(function(d) { 
+            console.log("standup: " + d.x)
+            return x(d.x) 
+        })
+        .y(function(d) {
+            console.log(d.y)
+            return y(d.y) 
+        }));
+
+    // Adding the line for shows
+    var u3 = svg.append("path")
+        .datum(data3)
+        .attr("fill", "none")
+        .attr("stroke", "orange")
+        .attr("stroke-width", 1.5)
+        .attr("d", d3.line()
+        .x(function(d) { 
+            console.log("shows " + d.x)
+            return x(d.x) 
+        })
+        .y(function(d) {
+            console.log(d.y)
+            return y(d.y) 
+        }));
+    
+    // Adding the line for movies
+    var u4 = svg.append("path")
+        .datum(data4)
+        .attr("fill", "none")
+        .attr("stroke", "white")
+        .attr("stroke-width", 1.5)
+        .attr("d", d3.line()
+        .x(function(d) { 
+            console.log("movies: " + d.x)
+            return x(d.x) 
+        })
+        .y(function(d) {
+            console.log(d.y)
+            return y(d.y) 
+        }));
+}
+// releases = [];
+// d3.csv('release_year.csv', function(data) {
+//         releases.push({x: data.year, y: data.count});
+//     }).then(() => {
+//         lineGraph(releases);
+//     });
 
 release = [] 
 standup = []
@@ -27,96 +144,24 @@ Promise.all([
 ]).then(([releasecsv, standupcsv, showscsv, moviescsv]) => {
     releasecsv.forEach(function(d) {
         d.count = parseInt(d.count)
-        content.push(d)
+        release.push({x: d.year, y: d.count});
     })
     standupcsv.forEach(function(d) {
         d.count = parseInt(d.count)
-        standup.push(d)
+        standup.push({x: d.year, y: d.count});
     })
-    shows.forEach(function(d) {
+    showscsv.forEach(function(d) {
         d.count = parseInt(d.count)
-        shows.push(d)
+        shows.push({x: d.year, y: d.count});
     })
-    movies.forEach(function(d) {
+    moviescsv.forEach(function(d) {
         d.count = parseInt(d.count)
-        movies.push(d)
+        movies.push({x: d.year, y: d.count});
     })
-
-
-    top10content = content.slice(0,10)
-    top10standup = standup.slice(0,10)
-
-    var x = setX(top10content, "country")
-    var y = setY(top10content, "country")
-
-    svg.append("g")
-            .attr("transform", "translate(0," + barheight + ")")
-            .call(d3.axisBottom(x))
-            .attr("class", "bottom");
-
-    svg.append("g")
-            .attr("class", "left")
-            .call(d3.axisLeft(y));
-    
-    // update(top10content, 'red', "country")
+    // console.log(release)
+    // console.log(standup)
+    // console.log(shows)
+    // console.log(movies)
+    // console.log(shows)
+    lineGraph(release, shows, standup, movies);
 });
-
-// set the dimensions and margins of the graph
-const lmargin = {top: 50, right: 50, bottom: 20, left: 30};
-const lwidth = 560 - lmargin.left - lmargin.right;
-const lheight = 500 - lmargin.top - lmargin.bottom;
-// append the svg object to the body of the page
-var lsvg = d3.select('.linechart')
-.append('div')
-.append("svg")
-.attr("width", lwidth + lmargin.left + lmargin.right)
-.attr("height", lheight + lmargin.top + lmargin.bottom)
-.append("g")
-.attr("transform", "translate(" + lmargin.left + "," + lmargin.top + ")"); // X axis
-
-var xScale = d3.scaleLinear().domain([0, 100]).range([0, lwidth]),
-    yScale = d3.scaleLinear().domain([0, 200]).range([lheight, 0]);
-
-lsvg.append("g")
-        .attr("transform", "translate(0," + lheight + ")")
-        .call(d3.axisBottom(xScale))
-        .attr("class", "lbottom");
-
-lsvg.append("g")
-        .attr("class", "lleft")
-        .call(d3.axisLeft(yScale));
-
-var line = d3.line()
-        .x(function(d) { return xScale(d[0]); }) 
-        .y(function(d) { return yScale(d[1]); }) 
-        .curve(d3.curveMonotoneX)
-
-var u = lsvg.append("path")
-        .datum(dataset1) 
-        .attr("class", "line")
-        .transition()
-        .duration(1000)
-        .attr("transform", "translate(" + 0 + "," + 0 + ")")
-        .attr("d", line)
-        .style("fill", "none")
-        .style("stroke", "#CC0000")
-        .style("stroke-width", "2");
-
-function update(data) {
-    var line = d3.line()
-        .x(function(d) { return xScale(d[0]); }) 
-        .y(function(d) { return yScale(d[1]); }) 
-        .curve(d3.curveMonotoneX)
-
-    var u = lsvg.select(".line")
-            .datum(data) 
-            .attr("class", "line")
-            .transition()
-            .duration(1000)
-            .attr("transform", "translate(" + 0 + "," + 0 + ")")
-            .attr("d", line)
-            .style("fill", "none")
-            .style("stroke", "#CC0000")
-            .style("stroke-width", "2");
-}
-update(dataset1);

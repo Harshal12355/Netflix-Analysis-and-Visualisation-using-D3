@@ -5,9 +5,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Netflix EDA</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet">
 </head>
 <body style="background-color: black;">
     <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 16px;
+            color: white;
+        }
         /* style button */
         .button {
             background-color: #4CAF50;
@@ -49,32 +57,31 @@
                     <a  style="color:white; text-decoration: none;" href="./index.html">Home</a>
                 </li>
                 <li class="active">
-                    <a style="color:white; text-decoration: none;"  href="./linecharts.html">Line charts</a>
+                    <a style="color:white; text-decoration: none;"  href="./linecharts.html">Amounts of content</a>
                 </li>
                 <li class="active">
-                    <a style="color:white; text-decoration: none;"  href="./barcharts.html">Bar charts</a>
+                    <a style="color:white; text-decoration: none;"  href="./barcharts.html">Countries and Ratings</a>
                 </li>
                 <li class="active">
-                    <a  style="color:white; text-decoration: none;" href="./piecharts.html">Pie charts</a>
+                    <a  style="color:white; text-decoration: none;" href="./piecharts.html">Comparisons</a>
+                </li>
+                <li class="active">
+                    <a  style="color:white; text-decoration: none;" href="./map.html">Geographical Representations</a>
                 </li>
             </ul>
         </nav>
     </div>
     <!-- linechart to show amount of content added over the years -->
-    <div style="height:100vh; width: 100vw; background-color: white;">
-        <h1 style="text-align:center; padding-top: 50px; color: black;">
-            Linechart
-        </h1>
-        <div style="text-align:center; margin-top:20px; float: left;">
-            <button class = 'button' onclick="update(top10content,'red','country')">General</button>
-            <!-- <button class = 'button' onclick="update(dataset2)">Standup</button>
-            <button class = 'button' onclick="update(dataset2)">TV shows</button>
-            <button class = 'button' onclick="update(dataset2)">Movies</button> -->
-        </div>
-         <div style="text-align:center; margin-top:20px; margin-right: 40px ;float: right; width:50vw; overflow-wrap: break-word;">
-            <h2 >
-                There is a lot of things we can take into consideration by looking at the below graph wieunfiweuhf weiduh weiufhsx ahxaiuh3e chiuwrnx xquwh zakb
-            </h2>
+    <div style="height:100vh; width: 100vw; background-color: black;">
+        <div style="margin-top:auto">
+            <h1 style="text-align:center; padding-top: 50px; color: white; padding-left: 70px;">
+                Linechart
+            </h1>
+             <div style="text-align:left; margin-top:5px; margin-right: 40px ;float: right; width:50vw; overflow-wrap: break-word;">
+                <h2>
+                    There is a lot of things we can take into consideration by looking at the below graph wieunfiweuhf weiduh weiufhsx ahxaiuh3e chiuwrnx xquwh zakb
+                </h2>
+            </div>
         </div>
         <div class="linechart"></div>
         <script src="linechart.js"></script>
