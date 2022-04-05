@@ -1,24 +1,11 @@
 // Set Dimensions
 const xSize = 700; const ySize = 600;
-const margin = 50;
+const margin = 30;
 const xMax = xSize - margin*2;
 const yMax = ySize - margin*2;
 
-// Get the 'limits' of the data - the full extent (mins and max)
-// so the plotted data fits perfectly
 function lineGraph(data, data2, data3, data4) {
-    console.log(data2)
-    // var xExtent = d3.extent( data, d=>{ return d.x } );
-    // // var yExtent = d3.extent( data, d=>{ console.log(d) 
-    // //     return d.y } );
-    // // console.log(yExtent)
-    // // console.log(yExtent.reverse())
-    // yMaxVal = d3.max(data, d=>{ 
-    //     console.log(d)
-    //     return d.y 
-    // });
-    // ymax = parseInt(yMaxVal);
-    // console.log(ymax+200)
+
     yExtent = [1000, 0];
     // Append SVG Object to the Page
     const svg = d3.select(".linechart")
@@ -125,12 +112,6 @@ function lineGraph(data, data2, data3, data4) {
             return y(d.y) 
         }));
 }
-// releases = [];
-// d3.csv('release_year.csv', function(data) {
-//         releases.push({x: data.year, y: data.count});
-//     }).then(() => {
-//         lineGraph(releases);
-//     });
 
 release = [] 
 standup = []
