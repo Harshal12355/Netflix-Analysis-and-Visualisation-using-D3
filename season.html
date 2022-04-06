@@ -89,18 +89,25 @@
     <!-- barchart of the amount of content and standup content in the  -->
     <div style="height:100vh; width: 100vw; background-color: black;">
         <h1 style="text-align:center; padding-top: 20px; color: white;">
-            Seasons information
+            Duration Information
         </h1>
-        <div style="text-align:center;margin: 10px; overflow-wrap: break-word;">
-            <h2 style="color:white">
-                There is a lot of things we can take into consideration by looking at the below graph wieunfiweuhf weiduh weiufhsx ahxaiuh3e chiuwrnx xquwh zakb
-            </h2>
-        </div>
         <!-- Create a div where the graph will take place -->
         <div>
-            <div id="my_dataviz" style="float:right; width:50vw; text-align: center;"></div>
-            <div id="second"  style="float:left;width:50vw; text-align: center;"></div>
+            <div style="float:right;width:50vw;">
+                <h3 style="text-align:center">Top 50 movies with the longest duration</h3>
+                <div id="my_dataviz" style="text-align: center;"></div>
+            </div>
+            <div style="float:left;width:50vw;">
+                <h3 style="text-align:center">Top 50 movies with the longest duration</h3>
+                <div id="second"  style="text-align: center;"></div>
+            </div>
+            <div style="padding:50px;"></div>
+            <div style="margin-top:200px;">
+                <h3 style="text-align:center">Top 50 movies with the longest duration</h3>
+                <div id="third"  style="text-align: center;"></div>
+            </div>
             <div id="tooltip"></div>
+
         </div>
     </div>
 
@@ -115,27 +122,40 @@
             
             // append the svg object
             const svg = d3.select("#my_dataviz")
-            .append("svg")
-                .attr("width", width + margin.left + margin.right)
-                .attr("height", height + margin.top + margin.bottom)
-            .append("g")
-                .attr("transform", `translate(${width/2+margin.left}, ${height/2+margin.top})`);
+                .append("svg")
+                    .attr("width", width + margin.left + margin.right)
+                    .attr("height", height + margin.top + margin.bottom)
+                .append("g")
+                    .attr("transform", `translate(${width/2+margin.left}, ${height/2+margin.top})`);
             const svg2 = d3.select("#second")
-            .append("svg")
-                .attr("width", width + margin.left + margin.right)
-                .attr("height", height + margin.top + margin.bottom)
-            .append("g")
-                .attr("transform", `translate(${width/2+margin.left}, ${height/2+margin.top})`);
+                .append("svg")
+                    .attr("width", width + margin.left + margin.right)
+                    .attr("height", height + margin.top + margin.bottom)
+                .append("g")
+                    .attr("transform", `translate(${width/2+margin.left}, ${height/2+margin.top})`);
+            const svg3 = d3.select("#third")
+                .append("svg")
+                    .attr("width", width + margin.left + margin.right)
+                    .attr("height", height + margin.top + margin.bottom)
+                .append("g")
+                    .attr("transform", `translate(${width/2+margin.left}, ${height/2+margin.top})`);
+                
+            durations = []
             types = []
             nums = []
             Promise.all([
                 d3.csv('no_of_seasons.csv'),
-                d3.csv('seasons.csv')
-            ]).then(([csv,scsv]) => {
+                d3.csv('seasons.csv'),
+                d3.csv("longest_movies.csv")
+            ]).then(([csv,scsv, dcsv]) => {
                 types.push(csv)
                 nums.push(scsv)
+                durations.push(dcsv)
+                console.log(dcsv)
                 update(nums[0], 800, svg)
                 update(types[0], 20, svg2)
+                update(durations[0], 300, svg3)
+
             });
 
             console.log(types)

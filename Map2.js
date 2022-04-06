@@ -84,6 +84,8 @@ Promise.all([
         return d;
     }); 
 
+    console.log(countries.features)
+
     update('content_count');
 });
 
