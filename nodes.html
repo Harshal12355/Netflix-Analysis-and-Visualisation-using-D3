@@ -1,23 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Map</title>
+    <title>Nodes</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet">
 </head>
-
-<body style="background-color:black ">
-    <script type="text/javascript" src="https://d3js.org/d3.v7.min.js"></script>
-
-    <link rel="stylesheet" href="mystyle.css">
+<body style="background-color:black">
 
     <style>
-        body{
+        body {
             font-family: 'Montserrat', sans-serif;
             font-size: 16px;
             color: white;
@@ -34,10 +29,6 @@
             font-size: 16px;
             margin: 4px 2px;
             cursor: pointer;
-            text-align: center;
-            font-family: 'Montserrat', sans-serif;
-            font-size: 16px;
-            color: white;
         }
         .active{
             background-color: #4CAF50;
@@ -56,20 +47,10 @@
             overflow: hidden;
             background-color: #333;
         }
-        .buttons{
-            text-align: center;
-            background-color: black;      
-            margin-top: 20px;
-        }
-        .mapclass{
-            margin-top: 20px;
-            margin-left: 20px;
-            margin-right: 20px;
-            margin-bottom: 20px;
-        }
     </style>
+    <!-- Load d3.js -->
+    <script src="https://d3js.org/d3.v7.js"></script>
 
-    <style class="darkreader darkreader--sync" media="screen"></style>
     <div>
         <nav id="navbar">
             <ul>
@@ -97,34 +78,11 @@
             </ul>
         </nav>
     </div>
-    <div class="buttons">
-        <button class="button" onclick="update('economy')">Economic Status</button>
-        <button class="button" onclick="update('pop_est')">Population</button>
-        <button class="button" onclick="update('content_count')">Amount of general content</button>
-        <button class="button" onclick="update('standup_count')">Amount of standup content</button>
-    </div>
-    <div>
-    <div id="container">
-        <div id="content" style="background-color: black">
-            <div class="infosection" style="float:right;width: 20vw; margin-right:50px">
-                <div class="info"> Hover over different countries to get certain details</div>
-                <div class="economy"> </div>
-                <div class="pop"> </div>
-                <div class="content"></div>
-                <div class="standup"></div>
-            </div>
-            <div style="margin: 5px"></div>
-            <div class="mapclass" style="float:left; width: 70vw;">
-                <svg style='background-color: black;' width="100%" height="600px">
-                    <g class="map"></g>
-                    <!-- <g class="bounding-box"><rect></rect></g>
-                    <g class="centroid"><circle r="4"></circle></g> -->
-                </svg>
-            </div>
-        </div>
-    </div>
 
-    <script src="Map2.js"></script>
+    <!-- Create a div where the graph will take place -->
+    <div id="my_dataviz" style="width:100vw; height:100vh;text-align:center;"></div>
+    <div style="width:10vw;height:10vh;"></div>
+
+    <script src="nodes.js"></script>
 </body>
-
 </html>

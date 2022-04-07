@@ -1,6 +1,6 @@
 // Set Dimensions
 const xSize = 700; const ySize = 600;
-const margin = 30;
+const margin = 40;
 const xMax = xSize - margin*2;
 const yMax = ySize - margin*2;
 
@@ -139,10 +139,6 @@ Promise.all([
         d.count = parseInt(d.count)
         movies.push({x: d.year, y: d.count});
     })
-    // console.log(release)
-    // console.log(standup)
-    // console.log(shows)
-    // console.log(movies)
-    // console.log(shows)
+
     lineGraph(release, shows, standup, movies);
 });

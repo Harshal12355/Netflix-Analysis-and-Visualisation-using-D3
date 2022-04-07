@@ -10,7 +10,6 @@ var piechart = d3.select("#piechartviz .amount_types")
     .append("g")
     .attr("transform","translate(" + xSize/2 + "," + ySize/2 + ")");
 const radius = Math.min(xSize, ySize) / 2;
-var color = d3.scaleOrdinal(['purple','blue']);
 var color = d3.scaleOrdinal().range(d3.schemeSet2);
 
 // Generate the pie
