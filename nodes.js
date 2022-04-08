@@ -1,5 +1,5 @@
 // set the dimensions and margins of the graph
-const width = 1000
+const width = 1500
 const height = 1000
 
 // append the svg object to the body of the page
@@ -54,7 +54,8 @@ Promise.all([
 function update(data,variable) {
 
     // Color palette
-    const color = d3.scaleOrdinal().range(d3.schemeSet1);
+    var color = d3.scaleOrdinal().range(d3.schemeSet1);
+    // var color = d3.scaleSequential().domain([1, 350]).interpolator(d3.interpolateRdBu);
     // Size scale for countries
     function setSize(data){
         const size = d3.scaleLinear()
